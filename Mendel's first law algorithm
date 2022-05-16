@@ -15,7 +15,7 @@ __Excercise goal__: Create a function to calculate the probability of dominant p
         heteroRecess = (z/total)*(y/(total-1)) + (y/total)*(z/(total-1))
 
         recessProb = twoRecess + twoHetero*1/4 + heteroRecess*1/2
-        print(1-recessProb) # take the complement
+        return (1-recessProb) # take the complement
 
     #mendel(2, 2, 2)
 
