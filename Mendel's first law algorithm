@@ -1,0 +1,40 @@
+__Exercise code__: IPRB
+__Excercise goal__: Create a function to calculate the probability of dominant phenotypes based on the population with: 
+  + k individuals are homozygous dominant
+  + m are heterozygous 
+  + n are homozygous recessive
+  
+  ***Solution based on #codeAligned***
+  
+```python
+    def mendel(x, y, z):
+        #calculate the probability of recessive traits only
+        total = x+y+z
+        twoRecess = (z/total)*((z-1)/(total-1)) 
+        twoHetero = (y/total)*((y-1)/(total-1))
+        heteroRecess = (z/total)*(y/(total-1)) + (y/total)*(z/(total-1))
+
+        recessProb = twoRecess + twoHetero*1/4 + heteroRecess*1/2
+        print(1-recessProb) # take the complement
+
+    #mendel(2, 2, 2)
+
+    with open ("rosalind_iprb.txt", "r") as file:
+        line =file.readline().split()
+        x, y, z= [int(n) for n in line]
+        print(x, y, z)
+    file.close()
+    print(mendel(x, y, z))
+```
+
+**Explanation**
+twoRecess requires to pick 2 organisms that are homozygous recessive. Assume that we have the population of 6 and 2 of them are homozygous recessive:
+  - The probablity of picking the first homozygous recessive is: 2/6 = 1/3
+  - The probablity of picking the 2nd homozygous recessive is: (2 - 1)/ (6 -1) = 1/5
+  - Sum = 1/3 * 1/5 (hence the `(z/total)*((z-1)/(total-1))` )
+  
+ heteroRecess is a bit different, we can pick **aa** and then *AA** or vice versa.
+  - The probability of picking the 1 homozygous recessive and 1 heterozygous: 2/6 + 2/(5 - 1) #since we just picked out 1 organism)
+  - Repeat and then we have:  `(z/total)*(y/(total-1)) + (y/total)*(z/(total-1))`
+  
+ Extrapolate for the rest. 
