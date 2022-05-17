@@ -1,0 +1,22 @@
+'''
+Exercise code : lia
+Excercise goal : Assuming independent allele's according to Mendel's Second Law, What is the probability there will be at least 'N' AaBb organisms
+after 'k' generations (just final, not including parents)?
+k - how many generations to pass
+N - how many AaBb organisms in final generation
+
+'''
+def prob_het(k,N):
+
+    prob_AaBb = 4/16 
+    
+    #the probability to get heterozygous AaBb is exactly 1/4 regardless of the combination
+
+    prob = []
+    total = 2**k # number of offsprings at k generation since each generation has 2 offsprings
+    
+    # since the question asked for at least N number of heterozygous offsprings at k generation, 
+    we need to cover all possible scenarios from N -> total offsprings are heterozygous
+    for i in range(N,(total+1)):
+      prob.append(nCr(total,i)*(prob_AaBb**i)*((1-prob_AaBb)**(total-i)))
+    return sum(prob)
